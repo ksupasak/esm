@@ -6,12 +6,10 @@
 development:
   adapter: mysql2
   database: soup_esm_emr
-  username: soup_esm_emr
+  username: root
   password: minadadmin
-  host: 127.0.0.1
   pool: 5
   timeout: 5000
-  socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,8 +23,7 @@ test:
 production:
   adapter: mysql2
   database: soup_esm_emr
-  username: soup_esm_emr
+  username: root
   password: minadadmin
   pool: 5
   timeout: 5000
-  socket: /var/lib/mysql/mysql.sock
