@@ -21,7 +21,7 @@
 
 	<div class="login_box" style="">
 		
-		<form action="dashboard.html" method="post" id="login_form">
+		<!--<form action="dashboard.html" method="post" id="login_form"> -->
 			<div class=" navbar-inner " style="text-align:center;padding-top:5px"><a href="/"><%= image_tag logo, :height=>36,:width=>250 %></a>
 			</div>    
 			<% if flash[:error] %>
@@ -109,7 +109,7 @@
 					</div>
 				</div>
 					<%  unless @current_solution %>
-				<span id="solution_id_toggle"><center><a href="javascript:$('#solution_id').show();$('#solution_id_toggle').hide();">...</a></center></span>	
+				<span id="solution_id_toggle"><center><a href="#">...</a></center></span>	
 				<div class="formRow" id="solution_id" style="display:none">
 					<div class="input-prepend">
 						<span class="add-on"><i class="icon-book"></i></span>
@@ -143,8 +143,9 @@
 				<span class="link_reg"><a href="/user/signup">Not registered? Sign up here</a></span>
 				<% end %>
 			</div>  
-		</form>
+		<!--</form>-->
 		<!--
+
 		<form action="dashboard.html" method="post" id="pass_form" style="display:none">
 			<div class="top_b">Can't sign in?</div>    
 				<div class="alert alert-info alert-login">
@@ -219,7 +220,6 @@
 	<% end %>
 	</div>
 		
-	</div>  
    <% end %>
 
     <script>
@@ -266,6 +266,13 @@
 					$(element).closest('div').append(error);
 				}
 			});
+
+	
+			$('#solution_id_toggle').click(function(){
+				$('#solution_id').show();$('#solution_id_toggle').hide();
+				
+			})
+
         });
     </script>
 
