@@ -138,14 +138,19 @@ if !@esm_template and cookies[:ie]!='true'
             <tbody>
 			<% for row in data %>
             <tr>
-                <% for col in fs %>
-                <td><%=row[col].html_safe%></td>
+                <% for col in fs 
+
+				v = row[col]
+				v = row[col].strftime("%d-%m-%Y") if row[col].instance_of? Date
+				
+				%>
+                <td><%=v.html_safe%></td>
               	<% end %>
             </tr>
 			<% end %>
   
             </tbody>
         </table>
-
-    </div>
+    <br/>
+    </div></div>
 <% end %>
