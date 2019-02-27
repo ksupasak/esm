@@ -217,7 +217,7 @@ class Document < ActiveRecord::Base
      	 # puts ""
   	 # puts ""       
             params[:record][k.to_sym] = ActiveSupport::JSON.decode(params[:record][k.to_sym])
-            if params[self.name.to_sym] and params[:record]["na_#{k}".to_sym]==nil
+            if params[self.name.to_sym] and params["na_#{k}".to_sym]==nil
             f = params[self.name.to_sym][k]
             if f
   	         
