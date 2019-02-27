@@ -193,8 +193,8 @@ class Document < ActiveRecord::Base
   def filter_record_params model,params
       models = self.project.load_model
 
-      puts 
-      puts params.inspect 
+      #puts 
+      #puts params.inspect 
 
 
       if params[:record]
@@ -217,19 +217,20 @@ class Document < ActiveRecord::Base
      	 # puts ""
   	 # puts ""       
             params[:record][k.to_sym] = ActiveSupport::JSON.decode(params[:record][k.to_sym])
-            if params[self.name.to_sym]
+            if params[self.name.to_sym] and params[:record]["na_#{k}".to_sym]==nil
             f = params[self.name.to_sym][k]
             if f
-  	  value = Fields::RelationMany.filter_params(self,field,params[:record][k],f)
-            puts "============== #{value.inspect}"
+  	         
+            value = Fields::RelationMany.filter_params(self,field,params[:record][k],f)
+            #puts "============== #{value.inspect}"
             params[:record][k.to_sym] = value if value.size>0
 
             else
   	  # puts "$$$$$ many #{k}"
-
-  	  params[:record][k.to_sym] = []
-  	  end
-  	  end
+  	        params[:record][k.to_sym] = []
+  	 
+            end
+  	      end
           when 'relation_one'
             # puts "ONE #{self.name} #{params[self.name.to_sym][k].inspect} #{k}"
             if params[:record][k.to_sym] and params[:record][k.to_sym] != "" 
