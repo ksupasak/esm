@@ -829,7 +829,7 @@ class Document < ActiveRecord::Base
 
            if self.tree_data
                   tdata = eval(self.tree_data.gsub(':','=>')) 
-                  tdata = [] unless tdata
+                  tdata = [{'id'=>'root','child'=>[]}] unless tdata
                   root_data_items = mapping(tdata[0], tmap,umap) 
            end
 
