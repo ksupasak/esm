@@ -828,6 +828,7 @@ class Document < ActiveRecord::Base
            tree_data = root_data_items = []
 
            if self.tree_data
+                   puts "xxxxx #{self.tree_data.inspect }"
                   tdata = eval(self.tree_data.gsub(':','=>')) 
                   tdata = [{'id'=>'root','child'=>[]}] unless tdata
                   root_data_items = mapping(tdata[0], tmap,umap) 
