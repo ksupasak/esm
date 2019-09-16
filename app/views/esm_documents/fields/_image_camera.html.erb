@@ -24,10 +24,10 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 	
 		<span style="float:left"><%= link_to("Sort ", '#',:class=>'sort_btn') %></span>
 		<span style="float:left">&nbsp;|&nbsp;Select :&nbsp; </span>
-		<span style="float:left"><%= link_to("All ", "javascript:select_all_image('#{field.id}',1)",:target =>'_blank') %></span>
+		<span style="float:left"><%= link_to("All ", "javascript:select_all_image('#{field.id}',1)") %></span>
 		<span style="float:left">&nbsp;,&nbsp;</span>
 		
-		<span style="float:left"><%= link_to("None", "javascript:select_all_image('#{field.id}',0)",:target =>'_blank') %></span>
+		<span style="float:left"><%= link_to("None", "javascript:select_all_image('#{field.id}',0)") %></span>
 		
 		<span style="float:right"><%= link_to('<i class="splashy-movie_play"></i>Snap Pictures'.html_safe, "/esm_image/#{@document.id}/snap?field_id=#{field.id}&p_id=#{@document.project.id}&path=#{path}&ref=#{record_name[1..-1]}#{options}",:target =>'_blank', :class=>'btn') %></span>
 		<span style="float:right" ><%= link_to('<i class="splashy-folder_classic_add"></i>Upload Pictures'.html_safe, "javascript:openUploadWindow()" ,:class=>'btn') %> &nbsp; </span>
