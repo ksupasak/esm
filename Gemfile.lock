@@ -188,7 +188,7 @@ GEM
     rest-graph (2.0.3)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
-    rubyzip (1.2.0)
+    rubyzip (2.0.0)
     rufus-scheduler (3.0.9)
       tzinfo
     sass (3.4.11)
