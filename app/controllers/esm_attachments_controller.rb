@@ -35,7 +35,7 @@ class EsmAttachmentsController < EsmController
            f.close
            size = '128x128'
            size = '256x256' if params[:thumb]=='2'
-           puts `/usr/local/bin/convert -resize #{size} #{fname} #{rname}`
+           puts `convert -resize #{size} #{fname} #{rname}`
            file = File.open(rname,'r')
            content = file.read
            file.close
