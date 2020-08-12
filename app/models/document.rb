@@ -498,6 +498,23 @@ class Document < ActiveRecord::Base
      return attach_field_file(field_id,filename,ssid,io,sort_order,ref)
    end
    
+   def attach_image_update att_id, data
+     
+     model = self.project.load_model[:attachment]
+     att = model.find att_id
+     
+     if att
+       filename = att.filename   
+       grid = Mongo::Grid.new(MongoMapper.database)
+       id = grid.put(data,:filename=>filename)
+       att.update_attributes :file_id=>id, :thumb_id=>nil
+     end
+     
+     return att
+     
+      
+   end
+    
    
    def attach_field_file field_id, filename, ssid, io, sort_order = 0 ,ref =''
        

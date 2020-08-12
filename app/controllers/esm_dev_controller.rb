@@ -1,6 +1,6 @@
 class EsmDevController < EsmController
 
-  before_filter :login_required ,:except=>[:snap,:recover,:barcode]
+  before_filter :login_required ,:except=>[:snap,:recover,:barcode,:snap_update]
   layout 'esm_application'
   
   before_filter :workspace

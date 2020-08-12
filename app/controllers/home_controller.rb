@@ -92,16 +92,16 @@ class HomeController < EsmController
   
   
   def  test
-  
-    @current_solution = Esm.find_by_name 'cusys'
-    
-    s = @current_solution.projects.find_by_name 'colorectal'
-    
-    s.get_instance
-     
-    home = s.get_service 'home' 
-      
-    render :text=>home.operations.find_by_name('index').command
+    #
+    # @current_solution = Esm.find_by_name 'cusys'
+    #
+    # s = @current_solution.projects.find_by_name 'colorectal'
+    #
+    # s.get_instance
+    #
+    # home = s.get_service 'home'
+    #
+    # render :text=>home.operations.find_by_name('index').command
   end
   
     # 

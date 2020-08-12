@@ -6,7 +6,28 @@ require 'barby/barcode/qr_code'
 require 'barby/outputter/png_outputter'
 
 class EsmImageController < EsmDevController
-  protect_from_forgery :except => [:snap,:recover]
+  protect_from_forgery :except => [:snap,:recover,:snap_update]
+
+  def snap_update
+    
+     # puts params.inspect
+     @project = Project.find(params[:p_id])
+    
+     doc = Document.find(params[:id])
+    
+     @document = @project.get_document doc.name
+    
+     # atts = @document.attach_field_image field_id,filename,params[:ssid],image,params[:sort_order].to_i,params[:ref]
+     image = request.body
+     if params[:image]
+       image = params[:image]
+     end
+    
+     att = @document.attach_image_update params[:att_id], Base64.decode64(image)
+    
+     render :text=>att.to_json,:content_type=>'application/json'
+     
+  end
 
   def snap 
     puts params.inspect

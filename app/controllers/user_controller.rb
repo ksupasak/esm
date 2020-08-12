@@ -71,7 +71,7 @@ class UserController < EsmController
            user = user_model.where(:login=>params[:user][:login]).first
            
            if user and User.encrypt(params[:user][:password], user.salt) == user.hashed_password
-                   flash[:error] = "You are not authorized to access!!"
+                   # flash[:error] = "You are not authorized to access!!"
                    @user = user 
            end
                       
