@@ -721,7 +721,7 @@ $( function() {
 		
 		<div class="colorButtons">
 		
-			<input type="color" id="colorpicker" value="#c81464" class="colorpicker">
+			<input type="color" id="colorpicker" value="#337dfe" class="colorpicker">
 		</div>
 		
 		<div class="buttonSize">
@@ -887,7 +887,7 @@ $( function() {
 			var body = document.getElementById("esm-image-editor");
 			// document.getElementById("demo");
 			
-			
+			var w = 517
 			
 			var ctx_final = canvas_final.getContext('2d');
 			var ctx_bg = canvas_bg.getContext('2d');
@@ -896,7 +896,7 @@ $( function() {
 			
 			var linesArray = [];
 			currentSize = 3;
-			var currentColor = "rgb(200,20,100)";
+			var currentColor = "#337dfe";
 			var currentBg = "white";
 
 			var editor_img_id = "";
@@ -934,7 +934,7 @@ $( function() {
 			document.getElementById('clearCache').addEventListener('click', function() {
 				localStorage.removeItem("savedCanvas");
 				linesArray = [];
-				console.log("Cache cleared!");
+				// console.log("Cache cleared!");
 			});
 
 			// REDRAW 
@@ -964,7 +964,7 @@ $( function() {
 				// var img = document.getElementById("img");
 	
 				ctx.clearRect(0,0,1920,1080)	
-				ctx_final.drawImage(canvas_bg, 0, 0,532, 532/1920*1080);
+				ctx_final.drawImage(canvas_bg, 0, 0,w, w/1920*1080);
 				
 				return false;
 				
@@ -972,17 +972,23 @@ $( function() {
 
 			function createCanvas() {
 				
+			
+				
+				// alert($('#esm-image-editor').width())
+				
+				s = 1920.0/w
+				
 				canvas_final.id = "canvas_final";
 				canvas_final.width = parseInt(document.getElementById("sizeX").value);
 				canvas_final.height = parseInt(document.getElementById("sizeY").value);
 				canvas_final.style.zIndex = 1;
-				ctx_final.scale(3.61, 3.61)
+				ctx_final.scale(s, s)
 				
 				canvas_bg.id = "canvas_bg";
 				canvas_bg.width = parseInt(document.getElementById("sizeX").value);
 				canvas_bg.height = parseInt(document.getElementById("sizeY").value);
 				canvas_bg.style.zIndex = 5;
-				ctx_bg.scale(3.61, 3.61)
+				ctx_bg.scale(s, s)
 				
 				canvas.id = "canvas";
 				canvas.width = parseInt(document.getElementById("sizeX").value);
@@ -999,18 +1005,18 @@ $( function() {
 				ctx_final.fillStyle = 'white';
 				ctx_final.fillRect(0, 0, canvas.width, canvas.height);
 				// ctx.globalAlpha = 0.1;
-				ctx.scale(3.61, 3.61)
+				ctx.scale(s, s)
 				
 				// ctx_final.drawImage(canvas_bg, 0, 0);
   			  // ctx_final.drawImage(canvas, 0, 0,532, 532/1920*1080);
-				
-				body.appendChild(canvas_final);
+					body.appendChild(canvas_final);
+			
 				
 				// body.appendChild(canvas);
 				
 				if(editor_img_id.length>0){
 					
-					w = 532
+				
 					image = document.getElementById(editor_img_id);
 				    var img = new Image(); 
 				    img.src =  image.src.replace("&thumb=1","") 
@@ -1020,7 +1026,7 @@ $( function() {
 					img.addEventListener('load', e => {
 						
 					  ctx_bg.drawImage(img,0,0,w,w/1920*1080);
-	    			  ctx_final.drawImage(canvas_bg, 0, 0,532, 532/1920*1080);
+	    			  ctx_final.drawImage(canvas_bg, 0, 0,w, w/1920*1080);
 					  
 					});		  
 							  
@@ -1048,7 +1054,7 @@ $( function() {
 			function save() {
 				localStorage.removeItem("savedCanvas");
 				localStorage.setItem("savedCanvas", JSON.stringify(linesArray));
-				console.log("Saved canvas!");
+				// console.log("Saved canvas!");
 			}
 
 			// LOAD FUNCTION
@@ -1066,7 +1072,7 @@ $( function() {
 						ctx.lineTo(linesArray[i].x, linesArray[i].y);
 						ctx.stroke();
 					}
-					console.log("Canvas loaded.");
+					// console.log("Canvas loaded.");
 				}
 				else {
 					console.log("No canvas in memory!");
@@ -1110,7 +1116,7 @@ $( function() {
 				
 				if(isMouseDown){
 					var currentPosition = getMousePos(canvas, evt);
-					console.log('move '+currentPosition.x+", "+currentPosition.y)
+					// console.log('move '+currentPosition.x+", "+currentPosition.y)
 					ctx_final.lineTo(currentPosition.x, currentPosition.y)
 					ctx_final.stroke();
 					store(currentPosition.x, currentPosition.y, currentSize, currentColor);
