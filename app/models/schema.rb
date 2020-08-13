@@ -108,6 +108,7 @@ class Attachment < MongoConnect
   key :ssid,String
   key :file_id,ObjectId
   key :thumb_id,ObjectId
+  key :original_id,ObjectId
   
 end
        

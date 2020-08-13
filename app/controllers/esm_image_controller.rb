@@ -29,6 +29,25 @@ class EsmImageController < EsmDevController
      
   end
 
+
+  def snap_restore
+    
+     # puts params.inspect
+     @project = Project.find(params[:p_id])
+    
+     doc = Document.find(params[:id])
+    
+     @document = @project.get_document doc.name
+    
+     # atts = @document.attach_field_image field_id,filename,params[:ssid],image,params[:sort_order].to_i,params[:ref]
+    
+    
+     att = @document.attach_image_restore params[:att_id]
+    
+     render :text=>att.to_json,:content_type=>'application/json'
+     
+  end
+
   def snap 
     puts params.inspect
     @project = Project.find(params[:p_id])

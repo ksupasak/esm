@@ -498,6 +498,18 @@ class Document < ActiveRecord::Base
      return attach_field_file(field_id,filename,ssid,io,sort_order,ref)
    end
    
+   def attach_image_restore att_id
+     
+     model = self.project.load_model[:attachment]
+     att = model.find att_id
+     
+     if att and att.original_id
+       att.update_attributes :file_id=>att.original_id, :thumb_id=>nil, :original_id=>nil
+     end
+     
+     return att
+   end
+   
    def attach_image_update att_id, data
      
      model = self.project.load_model[:attachment]
@@ -507,7 +519,16 @@ class Document < ActiveRecord::Base
        filename = att.filename   
        grid = Mongo::Grid.new(MongoMapper.database)
        id = grid.put(data,:filename=>filename)
-       att.update_attributes :file_id=>id, :thumb_id=>nil
+       
+       original_id = att.file_id
+       
+       if att.original_id
+         original_id = att.original_id
+         grid.delete att.file_id
+       end 
+       
+       
+       att.update_attributes :file_id=>id, :thumb_id=>nil, :original_id=>original_id
      end
      
      return att

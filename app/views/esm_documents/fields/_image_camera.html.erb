@@ -773,8 +773,13 @@ $( function() {
 	</div>
 	<div class="modal-footer">
 		<a id="emr-editor-save" class="btn btn-warning">Download</a>
-		<a id="clear" href="#" class="btn btn-danger" style="float:left"> <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>Reset</a>
 		
+		<a id="esm-editor-clear" href="#" class="btn btn-danger" style="float:left"> 
+		<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>Reset
+		</a>
+		<a id="esm-editor-restore" href="#" class="btn btn-danger" style="float:left"> 
+		<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>Restore
+		</a>
 		<a id="emr-editor-finish" class="btn btn-info">Finish</a>
 		
 		<a href="#" class="btn" style="float:left" data-dismiss="modal">Close</a>
@@ -928,7 +933,8 @@ $( function() {
 				downloadCanvas(this, 'canvas-final', 'edited.jpg');
 			}, false);
 			document.getElementById('eraser').addEventListener('click', eraser);
-			document.getElementById('clear').addEventListener('click', clear);
+			document.getElementById('esm-editor-clear').addEventListener('click', esm_editor_clear);
+			document.getElementById('esm-editor-restore').addEventListener('click', esm_editor_restore);
 			document.getElementById('save').addEventListener('click', save);
 			document.getElementById('load').addEventListener('click', load);
 			document.getElementById('clearCache').addEventListener('click', function() {
@@ -960,7 +966,7 @@ $( function() {
 			// CREATE CANVAS
 			// const image = document.getElementById('img');
 
-			function clear(){
+			function esm_editor_clear(){
 				// var img = document.getElementById("img");
 	
 				ctx.clearRect(0,0,1920,1080)	
@@ -969,6 +975,8 @@ $( function() {
 				return false;
 				
 			}
+			
+		
 
 			function createCanvas() {
 				
@@ -1151,6 +1159,44 @@ $( function() {
 
 			%>
 	
+	
+	function esm_editor_restore(){
+				// var img = document.getElementById("img");
+	
+				att_id  = editor_img_id
+			    // Sending the image data to Server
+			    $.ajax({
+			        type: 'POST',
+			        url: '/esm_image/<%=doc_id%>/snap_restore?p_id=<%=p_id%>&&att_id='+att_id,
+			        contentType: 'application/json; charset=utf-8',
+			        dataType: 'json',
+			        success: function (msg) {
+			            // alert("Done, Picture Restore.");
+						$('#esm-img-editor').modal('hide');
+				   
+					  
+						$('.highslide-image').each(function(){
+						    var url = $(this).attr("src");
+						    $(this).attr("src", url + `?v=${new Date().getTime()}`);
+						})   
+					   
+					   
+						$('#'+editor_img_id).each(function(){
+						    var url = $(this).attr("src");
+						    $(this).attr("src", url + `?v=${new Date().getTime()}`);
+						}) 
+					
+						$('#F'+editor_img_id).each(function(){
+						    var url = $(this).attr("href");
+						    $(this).attr("href", url + `?v=${new Date().getTime()}`);
+						})        
+			        }
+			    });
+				
+				return false;
+				
+			}
+	
 	function esm_editor_finish(){
 		
 	// Generate the image data
@@ -1168,7 +1214,7 @@ $( function() {
 		        contentType: 'application/json; charset=utf-8',
 		        dataType: 'json',
 		        success: function (msg) {
-		            alert("Done, Picture Uploaded.");
+		            // alert("Done, Picture Uploaded.");
 					$('#esm-img-editor').modal('hide');
 				   
 					  
