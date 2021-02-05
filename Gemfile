@@ -13,7 +13,7 @@ gem 'barby'
 gem 'chunky_png'
 gem 'rqrcode'
 
-gem 'saml2'
+# gem 'saml2'
 
 
 # gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
