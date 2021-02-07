@@ -169,6 +169,7 @@ class UserController < EsmController
     cookies.delete :login 
     cookies.delete :esm if params[:solution]
     flash[:message] = 'Logged out'
+    flash[:logout_path] = session[:logout_path]
     if params[:redirect_to]
     redirect_to params[:redirect_to]
     elsif session[:logout_path]
