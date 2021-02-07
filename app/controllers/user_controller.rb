@@ -178,9 +178,8 @@ class UserController < EsmController
     if params[:redirect_to]
     redirect_to params[:redirect_to]
     elsif logout_path
-    uri = session[:logout_path]
-    session.delete :logout_path
-    redirect_to uri
+
+    redirect_to logout_path
     
     else
       
