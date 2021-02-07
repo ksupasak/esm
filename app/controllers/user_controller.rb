@@ -171,6 +171,11 @@ class UserController < EsmController
     flash[:message] = 'Logged out'
     if params[:redirect_to]
     redirect_to params[:redirect_to]
+    elsif session[:logout_path]
+    uri = session[:logout_path]
+    session.delete :logout_path
+    redirect_to uri
+    
     else
       
     # redirect_to "/user/login?id=#{params[:id]}"
