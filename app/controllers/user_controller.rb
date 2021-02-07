@@ -154,6 +154,11 @@ class UserController < EsmController
   end
 
   def logout
+    
+    logout_path = nil
+    logout_path = session[:logout_path]
+    
+    
     session.clear                 
     session[:user] = nil
     session[:user_type] = nil
@@ -169,10 +174,10 @@ class UserController < EsmController
     cookies.delete :login 
     cookies.delete :esm if params[:solution]
     flash[:message] = 'Logged out'
-    flash[:logout_path] = session[:logout_path]
+    flash[:logout_path] = logout_path
     if params[:redirect_to]
     redirect_to params[:redirect_to]
-    elsif session[:logout_path]
+    elsif logout_path
     uri = session[:logout_path]
     session.delete :logout_path
     redirect_to uri
