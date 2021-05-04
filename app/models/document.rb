@@ -620,7 +620,7 @@ class Document < ActiveRecord::Base
                    when 'plain'
                    	list = i.lov.split("\n").collect{|j|  [j.strip,j.strip]}
                    when 'pair'
-                   	list = i.lov.split("\n").collect{|j| c = j.split("|"); [c[0],c[1].strip] }
+                   	list = i.lov.split("\n").collect{|j| c = j.split("|");  c = [c[0],''] ; [c[0],c[1].strip] }
                    else
                    	list = []
                    end
