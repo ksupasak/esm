@@ -553,7 +553,46 @@ class Document < ActiveRecord::Base
              filepath = '/'+File.join(path,"#{att.id}.#{type}")
             
              grid = Mongo::Grid.new(MongoMapper.database)
-             id = grid.put(io.read,:filename=>filename)
+             
+             
+             #id = grid.put(io.read,:filename=>filename)
+             
+             # ==========================================================
+             
+             ext = filename.split(".")[-1]
+             ext = 'jpg'
+             
+             id = nil
+             
+             if ext != 'jpg'
+               
+               id = grid.put(io.read,:filename=>filename)
+               
+             else
+             
+               rx = rand(9999999).to_s
+               # filename= ofile.filename
+               fname = "tmp/cache/#{rx}.#{ext}"
+               rname = "tmp/cache/#{rx}_new.#{ext}"
+               f = File.open(fname,'w')
+               f.write io.read.force_encoding('utf-8') 
+               f.close
+    
+               size = '1920x1080' 
+               puts `convert -resize #{size} #{fname} #{rname}`
+               file = File.open(rname,'r')
+               content = file.read
+               file.close
+               File.delete fname
+               File.delete rname
+               
+               id = grid.put(content,:filename=>filename)
+             
+             end
+             
+             # ==========================================================
+             
+             
              # puts id.class
              tmp = {:title=>'',:filename=>filename,:path=>filepath,:file_id=>id, :ref=>ref}
              att.update_attributes(tmp)
