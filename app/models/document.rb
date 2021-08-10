@@ -575,11 +575,15 @@ class Document < ActiveRecord::Base
                fname = "tmp/cache/#{rx}.#{ext}"
                rname = "tmp/cache/#{rx}_new.#{ext}"
                f = File.open(fname,'w')
-               f.write io.read.force_encoding('utf-8') 
+               content = io.read.force_encoding('utf-8') 
+               f.write content
                f.close
     
                size = '1920x1080' 
                puts `convert -resize #{size} #{fname} #{rname}`
+               
+               if FileTest.exist? rname
+               
                file = File.open(rname,'r')
                content = file.read
                file.close
@@ -587,6 +591,13 @@ class Document < ActiveRecord::Base
                File.delete rname
                
                id = grid.put(content,:filename=>filename)
+             
+               else
+               
+                 id = grid.put(content,:filename=>filename)
+                 
+               
+               end
              
              end
              
