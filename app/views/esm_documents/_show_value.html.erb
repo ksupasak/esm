@@ -9,6 +9,9 @@ if field and record
 # 	puts "ERROR "+field.column_name
 # 	
 # end
+
+# 	render_value xxx, 
+	
 	
 	case field.field_type
 	when 'extra_signature','relation_one','select_string'
@@ -31,7 +34,7 @@ if field and record
 		end
 	end
 	
-	if field.label.index '@'
+	if field.label.index('@') and value and value!=""
 		l = field.label.split('@')
 		value = "#{l[0]} #{value} #{l[1]}"
 	end
