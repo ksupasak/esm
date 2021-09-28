@@ -34,7 +34,7 @@ if field and record
 		end
 	end
 	
-	if field.label.index('@') and value and value!=""
+	if field.label.index('@') and value and value!="" and options[:lablel]!=nil
 		l = field.label.split('@')
 		value = "#{l[0]} #{value} #{l[1]}"
 	end
