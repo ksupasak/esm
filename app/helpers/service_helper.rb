@@ -162,7 +162,7 @@ EOF
      # return @current_object.context[:project].get_document name
    end
    
-   #. render_value 'field_name', :label=>false
+   # render_value 'field_name', :label=>false
    
    
    def render_value column_name, options=nil

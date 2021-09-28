@@ -34,9 +34,9 @@ if field and record
 		end
 	end
 	
-	if field.label.index('@') and value and value!="" and options[:lablel]!=nil
+	if field.label.index('@') and value and value!="" and options[:label]!=nil
 		l = field.label.split('@')
 		value = "#{l[0]} #{value} #{l[1]}"
 	end
 	
-%><%= value.to_s.html_safe %><%else%><%=value%>!<%end%>
+%><%= value.to_s.html_safe %><%else%><%=value%>!<%end%><%=options.inspect %>
