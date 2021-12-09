@@ -223,7 +223,12 @@ class Document < ActiveRecord::Base
   	         
             value = Fields::RelationMany.filter_params(self,field,params[:record][k],f)
             #puts "============== #{value.inspect}"
-            params[:record][k.to_sym] = value if value.size>0
+            
+              if value.size>0
+                params[:record][k.to_sym] = value
+              else
+                params[:record][k.to_sym] = []
+              end
 
             else
   	  # puts "$$$$$ many #{k}"
