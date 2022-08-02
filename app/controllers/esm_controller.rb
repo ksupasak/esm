@@ -11,6 +11,7 @@ class EsmController < ApplicationController
 
           Time.zone =  'Bangkok'
           
+          puts request.host
           select_esm = Esm.find_by_url request.host
           
           # direct url
