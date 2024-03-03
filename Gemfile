@@ -110,3 +110,6 @@ gem 'utf8-cleaner'
 gem 'roo'
 gem 'roo-xls'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
