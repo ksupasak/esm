@@ -19,10 +19,11 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 	options = "&ref_2=#{params[:ref_2]}" if params[:ref_2]
 	  	
 %>
+<div style="padding:8px">
 <table border='0' style="width:100%;">
 	<tr><td style='width:100px'>
 	
-		<span style="float:left"><%= link_to("Sort ", '#',:class=>'sort_btn') %></span>
+		<span style="float:left"><%= link_to("Sort ", '#',:class=>'btn sort_btn') %></span>
 		
 		<span class="extra" style="float:left">&nbsp;|&nbsp;Select :&nbsp; </span>
 		<span class="extra" style="float:left"><%= link_to("All ", "javascript:select_all_image('#{field.id}',1)") %></span>
@@ -35,6 +36,7 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 		
 		<div class="clear"></div>
 </td></tr></table>
+</div>
 
 <% else %>
 
@@ -128,16 +130,20 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 	<div id='bottombar'>
 		
 	<span class="right">
-		<%= link_to("Recover Pictures", "/esm_image/#{@document.id}/recover?field_id=#{field.id}&p_id=#{@document.project.id}&path=#{path}",:target =>'_blank') %>
+	
+	<%= link_to("Recover Pictures", "/esm_image/#{@document.id}/recover?field_id=#{field.id}&p_id=#{@document.project.id}&path=#{path}",:target =>'_blank') %>
 	</span>
-	<a href='javascript:remove_image("<%=field.id%>")'>
+	
+	
+	<a href='javascript:remove_image("<%=field.id%>")' class="right">
 	<div style="float:left" id='trash' ondragover='traskOver()' ondragleave='trashOut()' ondrop='trashDrop()'>&nbsp;
-		
 	</div>
 	</a>
+	
+	
+	
 	<span style="float:left;padding:10px;">
-		<%= link_to("Sort", "\#",:style=>"",:class=>'sort_btn') %>
-		
+		<%= link_to("Sort", "\#",:style=>"",:class=>'btn sort_btn') %>	
 	</span>
 	
 
@@ -164,7 +170,9 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 
 <script type="text/javascript" charset="utf-8">
 	
-	
+	function update_image(){
+		console.log('not defined');
+	}
 	
     function remove_image(fid){
 		var list = []
@@ -185,7 +193,43 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 		}
 	   window.scrollTo(0,$('#pictzone').offset().top-100);
 	}
+	
+	function compareImage(a, b) {
+		
+	  return a[0] - b[0];
+	  
+	}
+	
 	function sort_image(fid){
+		var list = []
+		$('.img_library_'+fid+"").each(function(index){
+			
+			v = parseInt($(this).val())
+			if(v>0){
+				list.push([v,$(this)])
+			}
+			
+		});
+		
+		sorted = list.sort(compareImage)
+		
+		for(var i=sorted.length-1;i>=0;i--){
+		
+		 obj = sorted[i][1];
+		    pictzone = $('#pictzone')
+		    // if(obj.attr('checked')=='checked'){
+				j = $(obj.parent().parent().parent())
+				//alert(''+index+' '+j.attr('id'))
+				// obj.removeAttr('checked')
+				pictzone.prepend(j)
+			// }
+			
+		}
+	   window.scrollTo(0,$('#pictzone').offset().top-100);	
+	   update_image();
+	}
+	
+	function sort_image_old(fid){
 		var list = []
 		$('.img_library_'+fid+"").each(function(index){
 		   list.push($(this))
@@ -204,6 +248,12 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 		}
 	   window.scrollTo(0,$('#pictzone').offset().top-100);	
 	}
+	
+	
+	
+
+
+
 
 
 	function select_all_image(fid,all){
@@ -211,15 +261,37 @@ path = "esm/#{@current_solution.name}/#{@document.project.name}#{record_name}/#{
 		$('.img_library_'+fid+"").each(function(index){
 		   list.push($(this))
 		});
-		for(var i=list.length-1;i>=0;i--){
+		
+		for(var i= 0;i<list.length;i++){
 		
 		 	obj = list[i];
-			if(all=='1')
-			obj.attr('checked','checked');
-			else
-			obj.removeAttr('checked')
+			
+			// if(all=='1')
+	// 		obj.attr('checked','checked');
+	// 		else
+	// 		obj.removeAttr('checked')
+			
+			if(all=='1'){
+				
+				obj.val(i+1)
+				obj.addClass("btn-success")
+				iid = obj.attr('iid')
+				$("#val-img-"+iid).val("1")
+				
+			}else{
+				
+				obj.val(" ")
+				obj.removeClass("btn-success")
+				iid = obj.attr('iid')
+				$("#val-img-"+iid).val("")
+				
+			}
+			
+				
+				
 		}
 	   window.scrollTo(0,$('#pictzone').offset().top-100);	
+	   update_image();
 	}
 
 
@@ -257,13 +329,27 @@ function onSuccess(e) {
 		$.ajax({
                 url: '/esm_image/<%=@document.id%>/attach_to_gallery?p_id=<%=@document.project.id%>&field_id=<%=@field.id%>&upload=true&a_id='+e.response.id,
                 data: [],
-                dataType: 'script',
+                // dataType: 'script',
                 type: 'GET',
                 error: function (xhr, status, error) {
 					alert(error);
                 }
             }).done(function(data){
-
+				console.log(data)
+				$(data).appendTo('#pictzone');
+				
+				// doc = document;
+	// 			ele = doc.getElementById('pictzone');
+	// 			newn = doc.createElement("div");
+	// 			newn.innerHTML = data;
+	//
+	// 			for(var i=0 ; i < newn.childNodes.length; i++){
+	// 				console.log(newn.childNodes[i])
+	// 				// alert(newn.childNodes[i].textContent)
+	// 				// alert(newn.childNodes[i])
+	// 				ele.insertBefore(newn.childNodes[i],ele.lastChild);
+	// 			}
+				 // document.body.appendChild(newn)
 			});
 		}
 	});
@@ -282,13 +368,12 @@ function onSuccess(e) {
 		$.ajax({
                 url: '/esm_image/<%=@document.id%>/attach_to_gallery?p_id=<%=@document.project.id%>&field_id=<%=@field.id%>&upload=true&a_id='+e.response.id,
                 data: [],
-                dataType: 'script',
                 type: 'GET',
                 error: function (xhr, status, error) {
 					alert(error);
                 }
             }).done(function(data){
-
+					$(data).appendTo('#pictzone');
 			});
 		}
 	});
@@ -341,12 +426,12 @@ function onSuccess(e) {
 		$.ajax({
                 url: '/esm_image/<%=@document.id%>/attach_to_gallery?p_id=<%=@document.project.id%>&field_id=<%=field.id%>&upload=true&ssid='+ssid,
                 data: [],
-                dataType: 'script',
                 type: 'GET',
                 error: function (xhr, status, error) {
 					alert(error)
                 }
             }).done(function(data){
+				$(data).appendTo('#pictzone');
 			});
 	}
 	$('.sort_btn').click(function(event){
@@ -683,6 +768,9 @@ function buildActiveList(){
  $(document).ready(function() {
 	// $('#select-image-modal').show();
     $('#select-image-modal').appendTo($('body'));
+	
+
+	
 });
 
 $( function() {

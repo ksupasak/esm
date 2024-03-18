@@ -5,3 +5,4 @@ config/initializers/esm.rb
 config/database.yml
 /public/esm/*
 /public/assets/*
+/databases/*
