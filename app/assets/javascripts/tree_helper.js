@@ -1,6 +1,6 @@
 
 vlocal = null;
-   function ESMTree(record_id, model, ap, fmap, master){
+   function ESMTree(record_id, model, map, fmap, master){
   
     this.record_id = record_id;
 	this.map = map;
