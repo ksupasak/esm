@@ -57,6 +57,7 @@ GEM
       execjs
     coffee-script-source (1.9.0)
     concurrent-ruby (1.0.5)
+    crass (1.0.6)
     creek (1.1.2)
       nokogiri (~> 1.6.0)
       rubyzip (>= 1.0.0)
@@ -82,7 +83,8 @@ GEM
     json (1.8.6)
     kgio (2.9.3)
     libv8 (3.16.14.19)
-    loofah (2.0.1)
+    loofah (2.19.1)
+      crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -102,6 +104,8 @@ GEM
     netrc (0.10.2)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    nokogiri-xmlsec-instructure (0.9.7)
+      nokogiri
     parallel (1.10.0)
     pdf-core (0.4.0)
     pdfkit (0.6.2)
@@ -199,6 +203,10 @@ GEM
     rubyzip (1.2.0)
     rufus-scheduler (3.0.9)
       tzinfo
+    saml2 (3.1.2)
+      activesupport (>= 3.2, < 7.1)
+      nokogiri (>= 1.5.8, < 2.0)
+      nokogiri-xmlsec-instructure (~> 0.9, >= 0.9.5)
     sass (3.4.11)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -290,6 +298,7 @@ DEPENDENCIES
   roo
   roo-xls
   rqrcode
+  saml2
   sass-rails
   therubyracer
   thin
