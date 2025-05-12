@@ -20,10 +20,16 @@ class PdfGenerator < Task
       pdf_file = File.join("tmp","cache","#{path}.#{id}.pdf")
       url = params['url']
       puts 'start'
-      kit = PDFKit.new(url,:margin_top => '0.2in',:margin_right => '0.2in',:margin_bottom => '0.2in',:javascript_delay => 1000)
-      file = kit.to_file(pdf_file)
-      puts 'finish'
       
+      if url[-4..-1] == '.pdf'
+          `curl -o #{pdf_file} #{url}`
+          puts 'finish'
+        else
+          kit = PDFKit.new(url,:margin_top => '0.2in',:margin_right => '0.2in',:margin_bottom => '0.2in',:javascript_delay => 1000)
+          file = kit.to_file(pdf_file)
+          puts 'finish'
+      end
+
       return_url = nil
       return_url = params['return'] if params['return']
     

@@ -65,7 +65,7 @@
  -->
 
 <input type='button' iid="<%=i.id%>" id="btn-img-<%=i.id%>" class='btn-img-select btn btn-small img_library_<%=@field.id%>  <%='btn-success' if i.selected and i.selected != 0 %>  ' name='<%= @name %>[selected][<%=i.id%>]'  value='<%=selected %>' />
-<input type='text' id='img_comment_ui_<%=i.id%>' name='[]' value='<%=i.title%>' style='width:130px'/>
+<input type='text' id='img_comment_ui_<%=i.id%>' name='[]' value='<%=i.title%>' style='width:110px'/>
 <input type='hidden' id='img_comment_<%=i.id%>' name='<%= @name %>[title][]' value='<%=i.title%>' style='width:100px'/>
 
 <script>
